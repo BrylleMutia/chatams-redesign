@@ -12,6 +12,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 import ConstellationLogo from "../assets/constellation.png";
 
@@ -48,6 +50,18 @@ export default function CustomDrawer() {
                />
             </Toolbar>
             <Divider />
+
+            <Box sx={{ margin: "1em auto", marginTop: "2em" }}>
+               <ButtonGroup
+                  variant="outlined"
+                  size="small"
+                  aria-label="Basic button group"
+               >
+                  <Button>Incidents</Button>
+                  <Button>Requests</Button>
+               </ButtonGroup>
+            </Box>
+
             <List>
                {["Inbox", "Starred", "Send email", "Drafts"].map(
                   (text, index) => (

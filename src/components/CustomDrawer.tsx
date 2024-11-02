@@ -16,10 +16,17 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
 import ConstellationLogo from "../assets/constellation.png";
+import { useState } from "react";
 
-const drawerWidth = 240;
+const drawerWidth = 320;
+export type NavMode = "incidents" | "requests";
 
 export default function CustomDrawer() {
+   const [navMode, setNavMode] = useState<NavMode>("incidents");
+
+   const handleNavModeChange = (selectedNavMode: NavMode) =>
+      setNavMode(selectedNavMode);
+
    return (
       <Box sx={{ display: "flex" }}>
          <CssBaseline />
@@ -42,7 +49,7 @@ export default function CustomDrawer() {
             variant="permanent"
             anchor="left"
          >
-            <Toolbar>
+            <Toolbar sx={{ margin: "0 auto" }}>
                <img
                   style={{ maxWidth: "200px" }}
                   src={ConstellationLogo}
@@ -57,8 +64,20 @@ export default function CustomDrawer() {
                   size="small"
                   aria-label="Basic button group"
                >
-                  <Button>Incidents</Button>
-                  <Button>Requests</Button>
+                  <Button
+                     onClick={() => handleNavModeChange("incidents")}
+                     variant={
+                        navMode === "incidents" ? "contained" : "outlined"
+                     }
+                  >
+                     Incidents
+                  </Button>
+                  <Button
+                     onClick={() => handleNavModeChange("requests")}
+                     variant={navMode === "requests" ? "contained" : "outlined"}
+                  >
+                     Requests
+                  </Button>
                </ButtonGroup>
             </Box>
 

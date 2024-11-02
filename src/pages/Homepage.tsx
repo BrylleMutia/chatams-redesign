@@ -4,7 +4,6 @@ import CustomDrawer from "../components/CustomDrawer";
 const Homepage = () => {
    return (
       <div>
-         <div>Homepage</div>
          <CustomDrawer />
       </div>
    );

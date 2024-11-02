@@ -27,13 +27,7 @@ export default function CustomDrawer() {
                width: `calc(100% - ${drawerWidth}px)`,
                ml: `${drawerWidth}px`,
             }}
-         >
-            <Toolbar>
-               <Typography variant="h6" noWrap component="div">
-                  Permanent drawer
-               </Typography>
-            </Toolbar>
-         </AppBar>
+         ></AppBar>
          <Drawer
             sx={{
                width: drawerWidth,
@@ -47,7 +41,11 @@ export default function CustomDrawer() {
             anchor="left"
          >
             <Toolbar>
-               <img style={{ maxWidth: "200px" }} src={ConstellationLogo} alt="constelation logo" />
+               <img
+                  style={{ maxWidth: "200px" }}
+                  src={ConstellationLogo}
+                  alt="constelation logo"
+               />
             </Toolbar>
             <Divider />
             <List>

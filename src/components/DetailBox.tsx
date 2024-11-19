@@ -12,6 +12,7 @@ const DetailBox = () => {
             flexDirection: "column",
             backgroundColor: "white",
             borderRadius: "15px 15px 0 0",
+            border: `1px solid ${theme.palette.grey[300]}`,
             px: "2em",
             py: "1em",
          }}

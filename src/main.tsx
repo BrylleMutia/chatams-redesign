@@ -5,11 +5,14 @@ import App from "./App.tsx";
 
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
+import AppContextProvider from "./context/AppContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
    <StrictMode>
       <ThemeProvider theme={theme}>
-         <App />
+         <AppContextProvider>
+            <App />
+         </AppContextProvider>
       </ThemeProvider>
    </StrictMode>
 );

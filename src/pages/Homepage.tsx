@@ -1,11 +1,12 @@
 import React from "react";
 import CustomDrawer from "../components/CustomDrawer";
+import { Box } from "@mui/material";
 
 const Homepage = () => {
    return (
-      <div>
+      <Box sx={{ height: "100%" }}>
          <CustomDrawer />
-      </div>
+      </Box>
    );
 };
 

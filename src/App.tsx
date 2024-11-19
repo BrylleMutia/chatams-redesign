@@ -7,7 +7,7 @@ function App() {
    const [count, setCount] = useState(0);
 
    return (
-      <main>
+      <main style={{ height: "100%" }}>
          <Homepage />
       </main>
    );

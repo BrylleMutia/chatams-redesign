@@ -61,12 +61,12 @@ export default function CustomDrawerTab() {
                aria-label="basic tabs example"
             >
                {TABS.map((tabTitle, index) => (
-                  <Tab label={tabTitle} {...a11yProps(index)} />
+                  <Tab key={index} label={tabTitle} {...a11yProps(index)} />
                ))}
             </Tabs>
          </Box>
          {TABS.map((tabTitle, index) => (
-            <CustomTabPanel value={value} index={index}>
+            <CustomTabPanel key={index} value={value} index={index}>
                test
             </CustomTabPanel>
          ))}

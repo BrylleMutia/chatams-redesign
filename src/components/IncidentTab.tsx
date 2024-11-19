@@ -48,7 +48,7 @@ const IncidentTab = () => {
          >
             <List>
                {SAMPLE_INCS.map((inc, index) => (
-                  <ListItem key={inc.number} disablePadding>
+                  <ListItem key={index} disablePadding>
                      <ListItemButton>
                         <ListItemIcon>
                            {stateIconIdentifier(inc.state)}

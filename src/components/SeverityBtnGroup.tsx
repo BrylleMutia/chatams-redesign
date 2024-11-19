@@ -16,8 +16,9 @@ const SeverityBtnGroup = () => {
          size="small"
          aria-label="Basic button group"
       >
-         {SEVERITY.map((sev) => (
+         {SEVERITY.map((sev, index) => (
             <Button
+               key={index}
                onClick={() => handleNavModeChange(sev)}
                variant={navMode === sev ? "contained" : "outlined"}
             >

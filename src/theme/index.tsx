@@ -27,6 +27,9 @@ const theme = createTheme({
                  secondary: purple[500],
               },
            }),
+      grey: {
+         "500": "#F5F6FA",
+      },
    },
 });
 

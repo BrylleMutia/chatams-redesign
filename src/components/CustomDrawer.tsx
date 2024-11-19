@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { createRef, useContext } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -6,6 +6,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import ConstellationLogo from "../assets/constellation.png";
 import CustomDrawerTab from "./CustomDrawerTab";
@@ -14,13 +15,20 @@ import NoteBox from "./NoteBox";
 import NoteInput from "./NoteInput";
 import { AppContext } from "../context/AppContext";
 import { AppContextType } from "../context/types";
+import { useScrollIntoView } from "../utils";
 
-const drawerWidth = 320;
+const drawerWidthSmDown = 280;
+const drawerWidthSmUp = 320;
 
 export default function CustomDrawer() {
    const { notes } = useContext(AppContext) as AppContextType;
 
    const theme = useTheme();
+   const matches = useMediaQuery(theme.breakpoints.down("xl"));
+
+   // scroll new note into view
+   const newNoteBoxRef = createRef<HTMLDivElement>();
+   useScrollIntoView(newNoteBoxRef, notes);
 
    return (
       <Box sx={{ display: "flex", height: "100%" }}>
@@ -28,16 +36,18 @@ export default function CustomDrawer() {
          <AppBar
             position="fixed"
             sx={{
-               width: `calc(100% - ${drawerWidth}px)`,
-               ml: `${drawerWidth}px`,
+               width: `calc(100% - ${
+                  matches ? drawerWidthSmDown : drawerWidthSmUp
+               }px)`,
+               ml: `${matches ? drawerWidthSmDown : drawerWidthSmUp}px`,
             }}
          ></AppBar>
          <Drawer
             sx={{
-               width: drawerWidth,
+               width: matches ? drawerWidthSmDown : drawerWidthSmUp,
                flexShrink: 0,
                "& .MuiDrawer-paper": {
-                  width: drawerWidth,
+                  width: matches ? drawerWidthSmDown : drawerWidthSmUp,
                   boxSizing: "border-box",
                },
             }}
@@ -67,11 +77,13 @@ export default function CustomDrawer() {
          >
             <Box
                sx={{
-                  maxWidth: "700px",
+                  maxWidth: "650px",
                   border: `1px solid ${theme.palette.grey[500]}`,
                   borderRadius: "15px",
-                  marginTop: "5%",
+                  marginTop: "2em",
+                  marginBottom: "2em",
                   backgroundColor: `${theme.palette.grey[500]}`,
+                  height: "100%",
                }}
             >
                <Box
@@ -80,21 +92,24 @@ export default function CustomDrawer() {
                      display: "flex",
                      flexDirection: "column",
                      justifyContent: "space-between",
+                     paddingBottom: "2em",
                   }}
                >
-                  <Box sx={{ flexGrow: "1" }}>
+                  <Box sx={{ flexGrow: 1 }}>
                      <DetailBox />
 
                      <Box
                         sx={{
                            overflowY: "scroll",
                            flexGrow: "1",
-                           maxHeight: "30em",
+                           maxHeight: matches ? "28em" : "32em",
                         }}
                      >
                         {notes.map((note, index) => (
                            <NoteBox noteDetails={note} key={index} />
                         ))}
+
+                        <div ref={newNoteBoxRef} />
                      </Box>
                   </Box>
 

@@ -55,7 +55,7 @@ const IncidentTab = () => {
                         </ListItemIcon>
                         <ListItemText
                            primary={inc.number}
-                           secondary={inc.desc.substring(0, 30) + "..."}
+                           secondary={inc.desc.substring(0, 25) + "..."}
                         />
                      </ListItemButton>
                   </ListItem>

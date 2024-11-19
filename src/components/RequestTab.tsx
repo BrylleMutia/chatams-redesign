@@ -34,7 +34,7 @@ const RequestTab = () => {
                      </ListItemIcon>
                      <ListItemText
                         primary={ritm.number}
-                        secondary={ritm.desc.substring(0, 30) + "..."}
+                        secondary={ritm.desc.substring(0, 25) + "..."}
                      />
                   </ListItemButton>
                </ListItem>

@@ -55,7 +55,6 @@ const NoteInput = () => {
             name="prompt"
             autoComplete="prompt"
             placeholder="Type something"
-            autoFocus
             onChange={handleNoteInputChange}
             fullWidth
             size="medium"

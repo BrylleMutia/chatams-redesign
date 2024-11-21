@@ -16,6 +16,7 @@ import NoteInput from "./NoteInput";
 import { AppContext } from "../context/AppContext";
 import { AppContextType } from "../context/types";
 import { useScrollIntoView } from "../utils";
+import Assistant from "./Assistant";
 
 const drawerWidthSmDown = 280;
 const drawerWidthSmUp = 320;
@@ -31,7 +32,12 @@ export default function CustomDrawer() {
    useScrollIntoView(newNoteBoxRef, notes);
 
    return (
-      <Box sx={{ display: "flex", height: "100%" }}>
+      <Box
+         sx={{
+            display: "flex",
+            height: "100%",
+         }}
+      >
          <CssBaseline />
          <AppBar
             position="fixed"
@@ -77,7 +83,7 @@ export default function CustomDrawer() {
          >
             <Box
                sx={{
-                  maxWidth: "650px",
+                  width: "650px",
                   border: `1px solid ${theme.palette.grey[500]}`,
                   borderRadius: "15px",
                   marginTop: "2em",
@@ -119,6 +125,22 @@ export default function CustomDrawer() {
                </Box>
             </Box>
          </Box>
+
+         <Box
+            sx={{
+               height: "100%",
+               maxWidth: "20em",
+               display: "flex",
+               mr: matches ? "2em" : "0",
+               flexDirection: "column",
+               justifyContent: "center",
+               alignItems: "center",
+            }}
+         >
+            <Assistant />
+         </Box>
       </Box>
    );
 }
+
+// TODO: Continue Assistant Component

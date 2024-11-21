@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -26,7 +25,7 @@ const RequestTab = () => {
          </Box>
 
          <List>
-            {SAMPLE_RITMS.map((ritm, index) => (
+            {SAMPLE_RITMS.map((ritm) => (
                <ListItem key={ritm.number} disablePadding>
                   <ListItemButton>
                      <ListItemIcon>

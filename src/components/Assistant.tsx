@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import {
    Box,
    IconButton,
-   Paper,
    Popover,
    TextField,
    Typography,

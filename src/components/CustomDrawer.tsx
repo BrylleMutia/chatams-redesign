@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import ConstellationLogo from "../assets/constellation.png";
+import AccentureLogo from "../assets/acn_logo.png";
 import CustomDrawerTab from "./CustomDrawerTab";
 import DetailBox from "./DetailBox";
 import NoteBox from "./NoteBox";
@@ -62,8 +62,8 @@ export default function CustomDrawer() {
          >
             <Toolbar sx={{ margin: "0 auto" }}>
                <img
-                  style={{ maxWidth: "200px" }}
-                  src={ConstellationLogo}
+                  style={{ maxWidth: "130px" }}
+                  src={AccentureLogo}
                   alt="constelation logo"
                />
             </Toolbar>

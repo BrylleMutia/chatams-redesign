@@ -86,7 +86,6 @@ export default function CustomDrawer() {
                   width: "650px",
                   border: `1px solid ${theme.palette.grey[500]}`,
                   borderRadius: "15px",
-                  marginTop: "2em",
                   marginBottom: "2em",
                   backgroundColor: `${theme.palette.grey[500]}`,
                   height: "100%",
@@ -108,7 +107,7 @@ export default function CustomDrawer() {
                         sx={{
                            overflowY: "scroll",
                            flexGrow: "1",
-                           maxHeight: matches ? "28em" : "32em",
+                           maxHeight: matches ? "15em" : "32em",
                         }}
                      >
                         {notes.map((note, index) => (

@@ -49,7 +49,7 @@ const Assistant = () => {
             backgroundColor: theme.palette.grey["500"],
             borderRadius: "15px",
             border: `1px solid ${theme.palette.grey[300]}`,
-            marginTop: "4em",
+            marginY: 3,
          }}
       >
          <Box
@@ -78,7 +78,7 @@ const Assistant = () => {
          </Box>
          <Box
             sx={{
-               height: "87%",
+               height: "85%",
                display: "flex",
                flexDirection: "column",
                justifyContent: "space-between",
@@ -111,9 +111,11 @@ const Assistant = () => {
             </Box>
             <Box
                sx={{
-                  padding: "1em",
-                  paddingLeft: "0",
+                  paddingY: "1em",
+                  paddingRight: "1em",
+                  paddingLeft: "0.5em",
                   display: "flex",
+                  justifyContent: "center",
                }}
             >
                <IconButton
@@ -160,6 +162,7 @@ const Assistant = () => {
                   required
                   sx={{
                      paddingRight: 0,
+                     flexGrow: 1,
                      "& .MuiInputBase-root": {
                         padding: "5px",
                         paddingRight: 0,

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import type { Note } from "../constants/sample_notes";
+import type { Incident } from "../constants/sample_inc";
 
 const useScrollIntoView = (
    ref: React.RefObject<HTMLDivElement>,
-   notes: Note[] | null
+   incidents: Incident[] | null
 ) => {
    useEffect(() => {
       ref.current?.scrollIntoView({ behavior: "smooth" });
-   }, [notes]);
+   }, [incidents]);
 };
 
 export { useScrollIntoView };

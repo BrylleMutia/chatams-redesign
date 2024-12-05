@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import type { Note } from "../constants/sample_notes";
+import type { Note } from "../constants/sample_inc";
 
 type NoteBoxProps = {
    noteDetails: Note;

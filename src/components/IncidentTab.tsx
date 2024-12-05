@@ -33,7 +33,9 @@ export const stateIconIdentifier = (incState: IncidentState) => {
 };
 
 const IncidentTab = () => {
-   const { incidents, handleChangeSelectedItemDetail } = useContext(AppContext) as AppContextType;
+   const { incidents, handleChangeSelectedItemDetail } = useContext(
+      AppContext
+   ) as AppContextType;
 
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.down("lg")); // 1200px
@@ -60,7 +62,11 @@ const IncidentTab = () => {
             <List>
                {incidents.map((inc, index) => (
                   <ListItem key={index} disablePadding>
-                     <ListItemButton onClick={() => handleChangeSelectedItemDetail(inc.number)}>
+                     <ListItemButton
+                        onClick={() =>
+                           handleChangeSelectedItemDetail(inc.number)
+                        }
+                     >
                         <ListItemIcon>
                            {stateIconIdentifier(inc.state)}
                         </ListItemIcon>
@@ -83,3 +89,9 @@ const IncidentTab = () => {
 };
 
 export default IncidentTab;
+
+// TODO: Add dynamic details to Requests Tab
+// TODO: state select should also be dynamic (depending on the context data)
+// TODO: dynamic caller and opened on detail box per incident / request
+// TODO: add severity to inc / ritm then enable filtering
+// TODO: enable search on drawer

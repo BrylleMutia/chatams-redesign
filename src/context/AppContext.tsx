@@ -276,8 +276,23 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
    const handleSetIsLoading = (loadingState: boolean) =>
       setIsLoading(loadingState);
 
-   const handleAddNote = (note: Note) =>
-      setIncidents((prev) => [...prev, note]);
+   const handleAddNote = (newNote: Note) => {
+      // find selected item then update notes
+      const selectedItemIndex = incidents.findIndex(
+         (inc) => inc.number === selectedItemDetail
+      );
+
+      setIncidents((prev) => {
+         const updatedIncidents = [...prev];
+
+         updatedIncidents[selectedItemIndex].notes = [
+            ...prev[selectedItemIndex].notes,
+            newNote,
+         ];
+
+         return updatedIncidents;
+      });
+   };
 
    return (
       <AppContext.Provider

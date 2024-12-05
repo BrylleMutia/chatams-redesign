@@ -17,19 +17,22 @@ import { AppContext } from "../context/AppContext";
 import { AppContextType } from "../context/types";
 import { useScrollIntoView } from "../utils";
 import Assistant from "./Assistant";
+import StateSelect from "./StateSelect";
 
 const drawerWidthSmDown = 280;
 const drawerWidthSmUp = 320;
 
 export default function CustomDrawer() {
-   const { notes } = useContext(AppContext) as AppContextType;
+   const { incidents, selectedItemDetail } = useContext(
+      AppContext
+   ) as AppContextType;
 
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.down("lg")); // 1200px
 
    // scroll new note into view
    const newNoteBoxRef = createRef<HTMLDivElement>();
-   useScrollIntoView(newNoteBoxRef, notes);
+   useScrollIntoView(newNoteBoxRef, incidents);
 
    return (
       <Box
@@ -101,7 +104,11 @@ export default function CustomDrawer() {
                   }}
                >
                   <Box sx={{ flexGrow: 1 }}>
-                     <DetailBox />
+                     {incidents
+                        .filter((inc) => inc.number === selectedItemDetail)
+                        .map((inc, index) => (
+                           <DetailBox itemDetails={inc} key={index} />
+                        ))}
 
                      <Box
                         sx={{
@@ -110,15 +117,21 @@ export default function CustomDrawer() {
                            maxHeight: "50vh",
                         }}
                      >
-                        {notes.map((note, index) => (
-                           <NoteBox noteDetails={note} key={index} />
-                        ))}
+                        {/* filter out notes to only display for the selected inc / ritm */}
+                        {incidents
+                           .filter((inc) => inc.number === selectedItemDetail)
+                           .map((inc) =>
+                              inc.notes.map((note, index) => (
+                                 <NoteBox noteDetails={note} key={index} />
+                              ))
+                           )}
 
                         <div ref={newNoteBoxRef} />
                      </Box>
                   </Box>
 
                   <Box sx={{ margin: "2em" }}>
+                     <StateSelect />
                      <NoteInput />
                   </Box>
                </Box>

@@ -14,8 +14,11 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import SearchField from "./SearchField";
 import SeverityBtnGroup from "./SeverityBtnGroup";
-import { IncidentState, SAMPLE_INCS } from "../constants/sample_inc";
+import { IncidentState } from "../constants/sample_inc";
 import CustomDrawerActions from "./CustomDrawerActions";
+import { useContext } from "react";
+import { AppContextType } from "../context/types";
+import { AppContext } from "../context/AppContext";
 
 export const stateIconIdentifier = (incState: IncidentState) => {
    if (incState === "new") {
@@ -30,6 +33,8 @@ export const stateIconIdentifier = (incState: IncidentState) => {
 };
 
 const IncidentTab = () => {
+   const { incidents, handleChangeSelectedItemDetail } = useContext(AppContext) as AppContextType;
+
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.down("lg")); // 1200px
 
@@ -53,9 +58,9 @@ const IncidentTab = () => {
             }}
          >
             <List>
-               {SAMPLE_INCS.map((inc, index) => (
+               {incidents.map((inc, index) => (
                   <ListItem key={index} disablePadding>
-                     <ListItemButton>
+                     <ListItemButton onClick={() => handleChangeSelectedItemDetail(inc.number)}>
                         <ListItemIcon>
                            {stateIconIdentifier(inc.state)}
                         </ListItemIcon>

@@ -1,11 +1,13 @@
-import { Note } from "../constants/sample_notes";
+import type { Incident, Note } from "../constants/sample_inc";
 
 export type AppContextType = {
    selectedTheme: MUITheme;
    handleChangeTheme: (theme: MUITheme) => void;
+   selectedItemDetail: string;
+   handleChangeSelectedItemDetail: (itemName: string) => void;
    isLoading: boolean;
    handleSetIsLoading: (loadingState: boolean) => void;
-   notes: Note[];
+   incidents: Incident[];
    handleAddNote: (note: Note) => void;
 };
 

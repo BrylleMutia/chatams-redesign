@@ -1,8 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import type { Incident } from "../constants/sample_inc";
 
-const DetailBox = () => {
+type DetailBoxProps = {
+   itemDetails: Incident;
+};
+
+const DetailBox = ({ itemDetails }: DetailBoxProps) => {
    const theme = useTheme();
+
+   const { desc, number } = itemDetails;
 
    return (
       <Box
@@ -17,12 +24,8 @@ const DetailBox = () => {
          }}
       >
          <Box sx={{ marginBottom: "1em" }}>
-            <Typography variant="h6">INC5615632700</Typography>
-            <Typography variant="caption">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-               nisi velit, viverra at libero eget, auctor aliquam purus. Fusce
-               non metus id erat efficitur scelerisque.
-            </Typography>
+            <Typography variant="h6">{number}</Typography>
+            <Typography variant="caption">{desc}</Typography>
          </Box>
          <Box sx={{ display: "flex", gap: "0.5em" }}>
             <Box

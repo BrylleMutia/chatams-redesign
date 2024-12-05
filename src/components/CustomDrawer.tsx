@@ -25,7 +25,7 @@ export default function CustomDrawer() {
    const { notes } = useContext(AppContext) as AppContextType;
 
    const theme = useTheme();
-   const matches = useMediaQuery(theme.breakpoints.down("xl"));
+   const matches = useMediaQuery(theme.breakpoints.down("lg")); // 1200px
 
    // scroll new note into view
    const newNoteBoxRef = createRef<HTMLDivElement>();
@@ -83,7 +83,7 @@ export default function CustomDrawer() {
          >
             <Box
                sx={{
-                  width: "650px",
+                  // width: matches ? "650px" : "auto",
                   border: `1px solid ${theme.palette.grey[500]}`,
                   borderRadius: "15px",
                   marginBottom: "2em",
@@ -107,7 +107,7 @@ export default function CustomDrawer() {
                         sx={{
                            overflowY: "scroll",
                            flexGrow: "1",
-                           maxHeight: matches ? "15em" : "32em",
+                           maxHeight: "50vh",
                         }}
                      >
                         {notes.map((note, index) => (
@@ -128,9 +128,10 @@ export default function CustomDrawer() {
          <Box
             sx={{
                height: "100%",
-               maxWidth: "20em",
+               maxWidth: matches ? "20em" : "25%",
+               // flexBasis: "25%",
                display: "flex",
-               mr: matches ? "2em" : "0",
+               mr: "1.5em",
                flexDirection: "column",
                justifyContent: "center",
                alignItems: "center",

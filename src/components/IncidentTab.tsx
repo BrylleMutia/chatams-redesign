@@ -9,6 +9,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import MailLockIcon from "@mui/icons-material/MailLock";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import SearchField from "./SearchField";
 import SeverityBtnGroup from "./SeverityBtnGroup";
@@ -28,6 +30,11 @@ export const stateIconIdentifier = (incState: IncidentState) => {
 };
 
 const IncidentTab = () => {
+   const theme = useTheme();
+   const matches = useMediaQuery(theme.breakpoints.down("lg")); // 1200px
+
+   const navTextLimit = matches ? 25 : 30;
+
    return (
       <Box sx={{ height: "100%" }}>
          <Box sx={{ marginY: "1em", textAlign: "center" }}>
@@ -54,7 +61,9 @@ const IncidentTab = () => {
                         </ListItemIcon>
                         <ListItemText
                            primary={inc.number}
-                           secondary={inc.desc.substring(0, 20) + "..."}
+                           secondary={
+                              inc.desc.substring(0, navTextLimit) + "..."
+                           }
                         />
                      </ListItemButton>
                   </ListItem>

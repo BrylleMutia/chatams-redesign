@@ -5,31 +5,33 @@ import Box from "@mui/material/Box";
 import { TABS } from "../constants/drawer";
 import IncidentTab from "./IncidentTab";
 import RequestTab from "./RequestTab";
+import { AppContextType, DrawerTabs } from "../context/types";
+import { AppContext } from "../context/AppContext";
 
 interface TabPanelProps {
    children?: React.ReactNode;
-   index: number;
-   value: number;
+   tabName: DrawerTabs;
+   value: DrawerTabs;
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-   const { children, value, index, ...other } = props;
+   const { children, value, tabName, ...other } = props;
 
    return (
       <div
          role="tabpanel"
-         hidden={value !== index}
-         id={`simple-tabpanel-${index}`}
-         aria-labelledby={`simple-tab-${index}`}
+         hidden={value !== tabName}
+         id={`simple-tabpanel-${tabName}`}
+         aria-labelledby={`simple-tab-${tabName}`}
          {...other}
       >
-         {value === 0 && (
+         {value === "incident" && (
             <Box sx={{ height: "100%" }}>
                <IncidentTab />
             </Box>
          )}
 
-         {value === 1 && (
+         {value === "request" && (
             <Box>
                <RequestTab />
             </Box>
@@ -46,27 +48,30 @@ function a11yProps(index: number) {
 }
 
 export default function CustomDrawerTab() {
-   const [value, setValue] = React.useState(0);
+   const { selectedTab, handleChangeTab } = React.useContext(
+      AppContext
+   ) as AppContextType;
 
-   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-      setValue(newValue);
+   const handleChange = (newValue: DrawerTabs) => {
+      handleChangeTab(newValue);
    };
 
    return (
       <Box sx={{ width: "100%", height: "100%" }}>
          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-               value={value}
-               onChange={handleChange}
-               aria-label="basic tabs example"
-            >
+            <Tabs value={selectedTab} aria-label="basic tabs example">
                {TABS.map((tabTitle, index) => (
-                  <Tab key={index} label={tabTitle} {...a11yProps(index)} />
+                  <Tab
+                     onClick={() => handleChange(tabTitle)}
+                     key={index}
+                     label={tabTitle}
+                     {...a11yProps(index)}
+                  />
                ))}
             </Tabs>
          </Box>
          {TABS.map((tabTitle, index) => (
-            <CustomTabPanel key={index} value={value} index={index}>
+            <CustomTabPanel key={index} value={selectedTab} tabName={tabTitle}>
                {tabTitle}
             </CustomTabPanel>
          ))}

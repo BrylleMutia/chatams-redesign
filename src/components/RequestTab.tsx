@@ -12,10 +12,16 @@ import SearchField from "./SearchField";
 import SeverityBtnGroup from "./SeverityBtnGroup";
 import CustomDrawerActions from "./CustomDrawerActions";
 import { stateIconIdentifier } from "./IncidentTab";
-
-import { SAMPLE_RITMS } from "../constants/sample_ritm";
+import { AppContext } from "../context/AppContext";
+import { useContext } from "react";
+import { AppContextType } from "../context/types";
+import BlankMessage from "./BlankMessage";
+import { filterItemsBySeverity } from "../utils";
 
 const RequestTab = () => {
+   const { requests, handleChangeSelectedItemDetail, severityFilter } =
+      useContext(AppContext) as AppContextType;
+
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.down("lg")); // 1200px
 
@@ -32,19 +38,34 @@ const RequestTab = () => {
          </Box>
 
          <List>
-            {SAMPLE_RITMS.map((ritm) => (
-               <ListItem key={ritm.number} disablePadding>
-                  <ListItemButton>
-                     <ListItemIcon>
-                        {stateIconIdentifier(ritm.state)}
-                     </ListItemIcon>
-                     <ListItemText
-                        primary={ritm.number}
-                        secondary={ritm.desc.substring(0, navTextLimit) + "..."}
-                     />
-                  </ListItemButton>
-               </ListItem>
-            ))}
+            {filterItemsBySeverity(requests, severityFilter).length == 0 ? (
+               // if mapped item is blank, show message
+               <Box sx={{ textAlign: "center", my: "1em" }}>
+                  <BlankMessage />
+               </Box>
+            ) : (
+               filterItemsBySeverity(requests, severityFilter).map(
+                  (req, index) => (
+                     <ListItem key={index} disablePadding>
+                        <ListItemButton
+                           onClick={() =>
+                              handleChangeSelectedItemDetail(req.number)
+                           }
+                        >
+                           <ListItemIcon>
+                              {stateIconIdentifier(req.state)}
+                           </ListItemIcon>
+                           <ListItemText
+                              primary={req.number}
+                              secondary={
+                                 req.desc.substring(0, navTextLimit) + "..."
+                              }
+                           />
+                        </ListItemButton>
+                     </ListItem>
+                  )
+               )
+            )}
          </List>
 
          <Divider />

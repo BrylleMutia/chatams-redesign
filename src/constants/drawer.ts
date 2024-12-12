@@ -1,3 +1,5 @@
-export const SEVERITY = ["p4", "p3", "p2", "p1"];
+import { DrawerTabs, Severity } from "../context/types";
 
-export const TABS = ["incidents", "requests"];
+export const SEVERITY: Severity[] = ["ALL", "P4", "P3", "P2", "P1"];
+
+export const TABS: DrawerTabs[] = ["incident", "request"];

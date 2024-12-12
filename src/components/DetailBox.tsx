@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import type { Incident } from "../constants/sample_inc";
+import type { Incident } from "../context/types";
 
 type DetailBoxProps = {
    itemDetails: Incident;

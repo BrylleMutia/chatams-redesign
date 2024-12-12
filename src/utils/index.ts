@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import type { Incident } from "../constants/sample_inc";
+import type { Incident, Severity } from "../context/types";
 
 const useScrollIntoView = (
    ref: React.RefObject<HTMLDivElement>,
@@ -10,4 +10,9 @@ const useScrollIntoView = (
    }, [incidents]);
 };
 
-export { useScrollIntoView };
+const filterItemsBySeverity = (items: Incident[], severity: Severity) => {
+   if (severity === "ALL") return items;
+   return items.filter((item) => item.severity === severity);
+};
+
+export { useScrollIntoView, filterItemsBySeverity };

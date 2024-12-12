@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
 import { SEVERITY } from "../constants/drawer";
+import { AppContext } from "../context/AppContext";
+import { AppContextType } from "../context/types";
 
 const SeverityBtnGroup = () => {
-   const [navMode, setNavMode] = useState<string>("p4");
-
-   const handleNavModeChange = (selectedNavMode: string) =>
-      setNavMode(selectedNavMode);
+   const { severityFilter, handleChangeSeverityFilter } = useContext(
+      AppContext
+   ) as AppContextType;
 
    return (
       <ButtonGroup
@@ -19,8 +20,8 @@ const SeverityBtnGroup = () => {
          {SEVERITY.map((sev, index) => (
             <Button
                key={index}
-               onClick={() => handleNavModeChange(sev)}
-               variant={navMode === sev ? "contained" : "outlined"}
+               onClick={() => handleChangeSeverityFilter(sev)}
+               variant={severityFilter === sev ? "contained" : "outlined"}
             >
                {sev}
             </Button>

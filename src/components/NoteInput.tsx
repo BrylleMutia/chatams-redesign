@@ -7,9 +7,12 @@ import { AppContextType } from "../context/types";
 const NoteInput = () => {
    const [noteInput, setNoteInput] = useState<string>("");
 
-   const { isLoading, handleAddNote } = useContext(
-      AppContext
-   ) as AppContextType;
+   const {
+      isLoading,
+      selectedTab,
+      handleAddIncidentNote,
+      handleAddRequestNote,
+   } = useContext(AppContext) as AppContextType;
 
    const handleNoteInputChange = (
       event: React.ChangeEvent<HTMLTextAreaElement>
@@ -32,7 +35,11 @@ const NoteInput = () => {
          content: noteInput,
       };
 
-      handleAddNote(newNote);
+      if (selectedTab == "incident") {
+         handleAddIncidentNote(newNote);
+      } else if (selectedTab == "request") {
+         handleAddRequestNote(newNote);
+      }
       setNoteInput("");
    };
 

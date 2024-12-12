@@ -14,11 +14,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import SearchField from "./SearchField";
 import SeverityBtnGroup from "./SeverityBtnGroup";
-import { IncidentState } from "../constants/sample_inc";
+import { IncidentState } from "../context/types";
 import CustomDrawerActions from "./CustomDrawerActions";
 import { useContext } from "react";
 import { AppContextType } from "../context/types";
 import { AppContext } from "../context/AppContext";
+import { filterItemsBySeverity } from "../utils";
+import BlankMessage from "./BlankMessage";
 
 export const stateIconIdentifier = (incState: IncidentState) => {
    if (incState === "new") {
@@ -33,9 +35,8 @@ export const stateIconIdentifier = (incState: IncidentState) => {
 };
 
 const IncidentTab = () => {
-   const { incidents, handleChangeSelectedItemDetail } = useContext(
-      AppContext
-   ) as AppContextType;
+   const { incidents, handleChangeSelectedItemDetail, severityFilter } =
+      useContext(AppContext) as AppContextType;
 
    const theme = useTheme();
    const matches = useMediaQuery(theme.breakpoints.down("lg")); // 1200px
@@ -60,25 +61,34 @@ const IncidentTab = () => {
             }}
          >
             <List>
-               {incidents.map((inc, index) => (
-                  <ListItem key={index} disablePadding>
-                     <ListItemButton
-                        onClick={() =>
-                           handleChangeSelectedItemDetail(inc.number)
-                        }
-                     >
-                        <ListItemIcon>
-                           {stateIconIdentifier(inc.state)}
-                        </ListItemIcon>
-                        <ListItemText
-                           primary={inc.number}
-                           secondary={
-                              inc.desc.substring(0, navTextLimit) + "..."
-                           }
-                        />
-                     </ListItemButton>
-                  </ListItem>
-               ))}
+               {filterItemsBySeverity(incidents, severityFilter).length == 0 ? (
+                  // if mapped item is blank, show message
+                  <Box sx={{ textAlign: "center", my: "1em" }}>
+                     <BlankMessage />
+                  </Box>
+               ) : (
+                  filterItemsBySeverity(incidents, severityFilter).map(
+                     (inc, index) => (
+                        <ListItem key={index} disablePadding>
+                           <ListItemButton
+                              onClick={() =>
+                                 handleChangeSelectedItemDetail(inc.number)
+                              }
+                           >
+                              <ListItemIcon>
+                                 {stateIconIdentifier(inc.state)}
+                              </ListItemIcon>
+                              <ListItemText
+                                 primary={inc.number}
+                                 secondary={
+                                    inc.desc.substring(0, navTextLimit) + "..."
+                                 }
+                              />
+                           </ListItemButton>
+                        </ListItem>
+                     )
+                  )
+               )}
             </List>
 
             <Divider />
@@ -90,8 +100,8 @@ const IncidentTab = () => {
 
 export default IncidentTab;
 
-// TODO: Add dynamic details to Requests Tab
+// TODO: fix drawer tabs value and index (no highlight for selected tab)
 // TODO: state select should also be dynamic (depending on the context data)
 // TODO: dynamic caller and opened on detail box per incident / request
-// TODO: add severity to inc / ritm then enable filtering
 // TODO: enable search on drawer
+// TODO: Continue Assistant Component

@@ -1,4 +1,4 @@
-import { createRef, useContext } from "react";
+import React, { createRef, useContext } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -23,7 +23,7 @@ const drawerWidthSmDown = 280;
 const drawerWidthSmUp = 320;
 
 export default function CustomDrawer() {
-   const { incidents, selectedItemDetail } = useContext(
+   const { incidents, requests, selectedItemDetail, selectedTab } = useContext(
       AppContext
    ) as AppContextType;
 
@@ -32,7 +32,74 @@ export default function CustomDrawer() {
 
    // scroll new note into view
    const newNoteBoxRef = createRef<HTMLDivElement>();
-   useScrollIntoView(newNoteBoxRef, incidents);
+
+   if (selectedTab == "incident") {
+      useScrollIntoView(newNoteBoxRef, incidents);
+   } else if (selectedTab == "request") {
+      useScrollIntoView(newNoteBoxRef, requests);
+   }
+
+   const currentTabDetailView = () => {
+      /** display detail view based on currently selected tab */
+
+      if (selectedTab === "incident") {
+         return (
+            <React.Fragment>
+               {incidents
+                  .filter((inc) => inc.number === selectedItemDetail)
+                  .map((inc, index) => (
+                     <DetailBox itemDetails={inc} key={index} />
+                  ))}
+               <Box
+                  sx={{
+                     overflowY: "scroll",
+                     flexGrow: "1",
+                     maxHeight: "50vh",
+                  }}
+               >
+                  {/* filter out notes to only display for the selected inc / ritm */}
+                  {incidents
+                     .filter((inc) => inc.number === selectedItemDetail)
+                     .map((inc) =>
+                        inc.notes.map((note, index) => (
+                           <NoteBox noteDetails={note} key={index} />
+                        ))
+                     )}
+
+                  <div ref={newNoteBoxRef} />
+               </Box>
+            </React.Fragment>
+         );
+      } else if (selectedTab === "request") {
+         return (
+            <React.Fragment>
+               {requests
+                  .filter((req) => req.number === selectedItemDetail)
+                  .map((req, index) => (
+                     <DetailBox itemDetails={req} key={index} />
+                  ))}
+               <Box
+                  sx={{
+                     overflowY: "scroll",
+                     flexGrow: "1",
+                     maxHeight: "50vh",
+                  }}
+               >
+                  {/* filter out notes to only display for the selected inc / ritm */}
+                  {requests
+                     .filter((req) => req.number === selectedItemDetail)
+                     .map((req) =>
+                        req.notes.map((note, index) => (
+                           <NoteBox noteDetails={note} key={index} />
+                        ))
+                     )}
+
+                  <div ref={newNoteBoxRef} />
+               </Box>
+            </React.Fragment>
+         );
+      }
+   };
 
    return (
       <Box
@@ -104,30 +171,8 @@ export default function CustomDrawer() {
                   }}
                >
                   <Box sx={{ flexGrow: 1 }}>
-                     {incidents
-                        .filter((inc) => inc.number === selectedItemDetail)
-                        .map((inc, index) => (
-                           <DetailBox itemDetails={inc} key={index} />
-                        ))}
-
-                     <Box
-                        sx={{
-                           overflowY: "scroll",
-                           flexGrow: "1",
-                           maxHeight: "50vh",
-                        }}
-                     >
-                        {/* filter out notes to only display for the selected inc / ritm */}
-                        {incidents
-                           .filter((inc) => inc.number === selectedItemDetail)
-                           .map((inc) =>
-                              inc.notes.map((note, index) => (
-                                 <NoteBox noteDetails={note} key={index} />
-                              ))
-                           )}
-
-                        <div ref={newNoteBoxRef} />
-                     </Box>
+                     {/* determine detail view to display based on selected tab */}
+                     {currentTabDetailView()}
                   </Box>
 
                   <Box sx={{ margin: "2em" }}>
@@ -155,5 +200,3 @@ export default function CustomDrawer() {
       </Box>
    );
 }
-
-// TODO: Continue Assistant Component
